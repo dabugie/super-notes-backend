@@ -1,0 +1,23 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@app/super-notes-db/(.*)": "<rootDir>/../libs/super-notes-db/src/$1",
+    "@app/super-notes-db": "<rootDir>/../libs/super-notes-db/src",
+    "@super-notes/supernotes-db/(.*)": "<rootDir>/../libs/supernotes-db/src/$1",
+    "@super-notes/supernotes-db": "<rootDir>/../libs/supernotes-db/src",
+    "@super-notes/supernotes-core/(.*)": "<rootDir>/../libs/supernotes-core/src/$1",
+    "@super-notes/supernotes-core": "<rootDir>/../libs/supernotes-core/src",
+    "@super-notes/shared-models/(.*)": "<rootDir>/../libs/shared-models/src/$1",
+    "@super-notes/shared-models": "<rootDir>/../libs/shared-models/src"
+  }
+}

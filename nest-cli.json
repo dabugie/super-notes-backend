@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true
+  },
+  "projects": {
+    "super-notes-db": {
+      "type": "library",
+      "root": "libs/super-notes-db",
+      "entryFile": "index",
+      "sourceRoot": "libs/super-notes-db/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/super-notes-db/tsconfig.lib.json"
+      }
+    },
+    "supernotes-db": {
+      "type": "library",
+      "root": "libs/supernotes-db",
+      "entryFile": "index",
+      "sourceRoot": "libs/supernotes-db/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/supernotes-db/tsconfig.lib.json"
+      }
+    },
+    "supernotes-core": {
+      "type": "library",
+      "root": "libs/supernotes-core",
+      "entryFile": "index",
+      "sourceRoot": "libs/supernotes-core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/supernotes-core/tsconfig.lib.json"
+      }
+    },
+    "shared-models": {
+      "type": "library",
+      "root": "libs/shared-models",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared-models/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared-models/tsconfig.lib.json"
+      }
+    }
+  }
+}
