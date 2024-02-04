@@ -9,10 +9,13 @@ class Query {
 class Handler implements IQueryHandler<Query> {
   client = new PrismaClient();
 
-  async execute(query: Query) {
+  async execute() {
     try {
-      console.log({ query });
-      const notes = await this.client.note.findMany();
+      const notes = await this.client.note.findMany({
+        where: {
+          isActive: true,
+        },
+      });
       return notes;
     } catch (error) {
       throw new Error(error);
