@@ -3,6 +3,6 @@ import { NotesModule } from './features/notes/notes.module';
 
 @Module({
   imports: [NotesModule],
-  providers: [],
+  exports: [NotesModule],
 })
 export class SuperNotesCoreModule {}

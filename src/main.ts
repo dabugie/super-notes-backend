@@ -1,6 +1,6 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app/app.module';
 
 const app = async () => {
   const app = await NestFactory.create(AppModule);
@@ -11,10 +11,16 @@ const app = async () => {
   app.enableCors();
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-  );
+  await app
+    .listen(port)
+    .then(() => {
+      Logger.log(
+        `Application is running on: http://localhost:${port}/${globalPrefix}`,
+      );
+    })
+    .catch((error) => {
+      Logger.error(`Application failed to start: ${error}`);
+    });
 };
 
 app();

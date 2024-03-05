@@ -3,7 +3,10 @@ import { PrismaClient } from '@super-notes/db-lib';
 import { CreateNoteDto } from '@super-notes/shared-models';
 
 class Command {
-  constructor(public readonly createNoteDto: CreateNoteDto) {}
+  constructor(
+    public readonly createNoteDto: CreateNoteDto,
+    public readonly userId: string,
+  ) {}
 }
 
 @CommandHandler(Command)
@@ -17,6 +20,11 @@ class Handler implements ICommandHandler<Command> {
         data: {
           title,
           content,
+          user: {
+            connect: {
+              id: command.userId,
+            },
+          },
         },
       });
 
