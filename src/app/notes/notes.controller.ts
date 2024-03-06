@@ -48,7 +48,7 @@ export class NotesController {
     try {
       const command = new CreateNote.Command(createNoteDto, userId);
       const note = (await this.commandBus.execute(command)) as Note;
-      return note;
+      res.status(HttpStatus.CREATED).json(note);
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
         message: error.message,
@@ -60,18 +60,13 @@ export class NotesController {
   }
 
   @Get()
-  async getNotes(@Param('userId') userId: string, @Res() res: any) {
+  async getNotes(@Param('userId') userId: string) {
     try {
       const query = new GetNotes.Query(userId);
-      const notes = (await this.queryBus.execute(query)) as Note[];
+      const notes = await this.queryBus.execute(query);
       return notes;
     } catch (error) {
-      res.status(HttpStatus.BAD_REQUEST).json({
-        message: error.message,
-        error: 'Bad Request',
-        statusCode: 400,
-      });
-      return;
+      throw new Error(error.message);
     }
   }
 
@@ -84,7 +79,7 @@ export class NotesController {
     try {
       const query = new GetNotesById.Query(userId, noteId);
       const note = await this.queryBus.execute(query);
-      return note;
+      res.status(HttpStatus.OK).json(note);
     } catch (error) {
       if (error instanceof NoNoteExistsException) {
         res.status(HttpStatus.BAD_REQUEST).json({
@@ -107,7 +102,7 @@ export class NotesController {
     try {
       const command = new UpdateNote.Command(noteId, userId, createNoteDto);
       const note = (await this.commandBus.execute(command)) as Note;
-      return note;
+      res.status(HttpStatus.OK).json(note);
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
         message: error.message,
@@ -127,7 +122,7 @@ export class NotesController {
     try {
       const command = new DeleteNote.Query(userId, noteId);
       const note = await this.queryBus.execute(command);
-      return note;
+      res.status(HttpStatus.OK).json(note);
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
         message: error.message,

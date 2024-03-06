@@ -23,7 +23,7 @@ class Handler implements IQueryHandler<Query> {
       );
 
       if (!query.authorization) {
-        throw new Error('No token provided');
+        throw new Error('Session not found');
       }
 
       const accessToken = query.authorization.split(' ')[1];
