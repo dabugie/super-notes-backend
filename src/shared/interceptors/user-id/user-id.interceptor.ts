@@ -30,15 +30,13 @@ export class UserIdInterceptor implements NestInterceptor {
       const token = JSON.parse(
         Buffer.from(base64Token[1], 'base64').toString(),
       );
-      const email = token.upn;
+
+      const email = token.email;
       const userQuery = new GetUserByEmail.Query(email);
 
       return from(this.queryBus.execute(userQuery)).pipe(
         switchMap((user) => {
-          // Replace 'userId' param with the actual user ID from the query result
           request.params.userId = user.id;
-
-          // Continue with the next handler
           return next.handle();
         }),
         catchError((err) => {

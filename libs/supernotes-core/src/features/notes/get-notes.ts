@@ -14,6 +14,7 @@ class Handler implements IQueryHandler<Query> {
   async execute(query: Query) {
     try {
       this.logger.log(`Getting notes for user: ${query.userId}`);
+
       const notes = await this.client.note.findMany({
         where: {
           isActive: true,
@@ -23,6 +24,7 @@ class Handler implements IQueryHandler<Query> {
           createdAt: 'desc',
         },
       });
+
       this.logger.log(`Found ${notes.length} notes for user: ${query.userId}`);
       return notes;
     } catch (error) {
